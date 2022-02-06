@@ -3,11 +3,13 @@ let fiveLetterWords = words.filter((d) => {
   return d.length == 5;
 });
 
-let balckLetters = ["s", "p", "a", "c", "e", "h"];
-let greenLetters = ["m"];
+let balckLetters = ["r", "e", "a", "o", "p", "t", "h", "y"];
+let greenLetters = ["s", "*", "i", "l", "*"];
 let yellowLetters = [
-  { letter: "n", position: 2 },
-  { letter: "t", position: 3 },
+  { letter: "s", position: 4 },
+  { letter: "l", position: 1 },
+  // { letter: "i", position: 4 },
+  // { letter: "t", position: 3 },
 ];
 
 // handle black letters
@@ -22,7 +24,7 @@ fiveLetterWords = fiveLetterWords.filter((d) => {
 fiveLetterWords = fiveLetterWords.filter((d) => {
   for (let i = 0; i < greenLetters.length; i++) {
     if (greenLetters[i] != "*") {
-      if (d.indexOf(greenLetters[i]) != i) {
+      if (d.indexOf(greenLetters[i], i) != i) {
         return false;
       }
     }
