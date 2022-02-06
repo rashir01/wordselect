@@ -9,6 +9,8 @@ var fiveLetterWords = words.filter((d) => {
 // });
 let balckLetters = ["e", "d", "s", "b", "i", "h", "n", "g"];
 let greenletters = ["a", "l", "o"];
+
+// handle black letters
 fiveLetterWords = fiveLetterWords.filter((d) => {
   for (let i = 0; i < balckLetters.length; i++) {
     if (d.indexOf(balckLetters[i]) != -1) return false;
@@ -16,12 +18,20 @@ fiveLetterWords = fiveLetterWords.filter((d) => {
   return true;
 });
 
+// handle green letters
 fiveLetterWords = fiveLetterWords.filter((d) => {
-  return d.indexOf("a") != -1 && d.indexOf("l") != -1 && d.indexOf("o") != -1;
+  for (let i = 0; i < greenletters.length; i++) {
+    if (greenletters[i] != "*") {
+      if (d.indexOf(greenletters[i]) != i) {
+        return false;
+      }
+    }
+  }
+  return true;
 });
 
 fiveLetterWords = fiveLetterWords.filter((d) => {
-  return d.indexOf("a") === 0 && d.indexOf("l") === 1 && d.indexOf("o") === 2;
+  return d.indexOf("a") != -1 && d.indexOf("l") != -1 && d.indexOf("o") != -1;
 });
 
 // fiveLetterWords = fiveLetterWords.filter((d) => {
