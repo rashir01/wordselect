@@ -1,6 +1,5 @@
-console.log("hello world");
-var words = require("an-array-of-english-words");
-var fiveLetterWords = words.filter((d) => {
+const words = require("an-array-of-english-words");
+let fiveLetterWords = words.filter((d) => {
   return d.length == 5;
 });
 
