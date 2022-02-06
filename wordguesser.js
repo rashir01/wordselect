@@ -8,7 +8,12 @@ var fiveLetterWords = words.filter((d) => {
 //   return d[0] == "c";
 // });
 let balckLetters = ["e", "d", "s", "b", "i", "h", "n", "g"];
-let greenletters = ["a", "l", "o"];
+let greenLetters = ["a", "l", "o"];
+let yellowLetters = [
+  { letter: "a", position: 2 },
+  { letter: "l", position: 3 },
+  { letter: "o", position: 0 },
+];
 
 // handle black letters
 fiveLetterWords = fiveLetterWords.filter((d) => {
@@ -20,9 +25,9 @@ fiveLetterWords = fiveLetterWords.filter((d) => {
 
 // handle green letters
 fiveLetterWords = fiveLetterWords.filter((d) => {
-  for (let i = 0; i < greenletters.length; i++) {
-    if (greenletters[i] != "*") {
-      if (d.indexOf(greenletters[i]) != i) {
+  for (let i = 0; i < greenLetters.length; i++) {
+    if (greenLetters[i] != "*") {
+      if (d.indexOf(greenLetters[i]) != i) {
         return false;
       }
     }
@@ -30,24 +35,22 @@ fiveLetterWords = fiveLetterWords.filter((d) => {
   return true;
 });
 
+// handle yellow letters
+
 fiveLetterWords = fiveLetterWords.filter((d) => {
-  return d.indexOf("a") != -1 && d.indexOf("l") != -1 && d.indexOf("o") != -1;
+  for (let i = 0; i < yellowLetters.length; i++) {
+    if (
+      d.indexOf(yellowLetters[i].letter) == -1 ||
+      d.indexOf(yellowLetters[i].letter) == yellowLetters[i].position
+    ) {
+      return false;
+    }
+  }
+  return true;
 });
-
-// fiveLetterWords = fiveLetterWords.filter((d) => {
-//   return (
-//     d.indexOf("l") == 1 &&
-//     d.indexOf("l") != 4 &&
-//     d.indexOf("l") != 0 &&
-//     d.indexOf("a") != 2 &&
-//     d.indexOf("a") == 0 &&
-//     d.indexOf("o") == 2
-//   );
-// });
-
-// var eIsNotSecondLetter = startWithCAndNoA.filter((d) => {
-//   return d.indexOf("e") != 1;
-// });
 
 console.log(fiveLetterWords);
 console.log(`black letters ${balckLetters}`);
+
+console.log(JSON.stringify(yellowLetters));
+console.log(yellowLetters.length);
