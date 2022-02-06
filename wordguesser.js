@@ -4,15 +4,11 @@ var fiveLetterWords = words.filter((d) => {
   return d.length == 5;
 });
 
-// var wordsStartingWithC = fiveLetterWords.filter((d) => {
-//   return d[0] == "c";
-// });
-let balckLetters = ["e", "d", "s", "b", "i", "h", "n", "g"];
-let greenLetters = ["a", "l", "o"];
+let balckLetters = ["s", "p", "a", "c", "e", "h"];
+let greenLetters = ["m"];
 let yellowLetters = [
-  { letter: "a", position: 2 },
-  { letter: "l", position: 3 },
-  { letter: "o", position: 0 },
+  { letter: "n", position: 2 },
+  { letter: "t", position: 3 },
 ];
 
 // handle black letters
@@ -36,7 +32,6 @@ fiveLetterWords = fiveLetterWords.filter((d) => {
 });
 
 // handle yellow letters
-
 fiveLetterWords = fiveLetterWords.filter((d) => {
   for (let i = 0; i < yellowLetters.length; i++) {
     if (
@@ -50,7 +45,3 @@ fiveLetterWords = fiveLetterWords.filter((d) => {
 });
 
 console.log(fiveLetterWords);
-console.log(`black letters ${balckLetters}`);
-
-console.log(JSON.stringify(yellowLetters));
-console.log(yellowLetters.length);
