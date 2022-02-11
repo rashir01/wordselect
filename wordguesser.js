@@ -34,14 +34,13 @@ letterRank.set("j", 276);
 letterRank.set("x", 274);
 letterRank.set("q", 106);
 
-//determine word rank using the map
-
-//order the suggestions according to rank
-
-//arose, until,
-
+// get black letters from html
 let balckLetters = ["r", "o", "i", "l", "y", "m", "n", "c"];
+
+//get green letters from html
 let greenLetters = ["*", "a", "u", "s", "e"];
+
+//get yellow letters from html
 let yellowLetters = [
   { letter: "a", position: 0 },
   { letter: "a", position: 2 },
@@ -98,13 +97,16 @@ let rankedSuggestions = new Map();
 for (let i = 0; i < fiveLetterWords.length; i++) {
   let currentWord = fiveLetterWords[i];
   let rank = 0;
+  //determine word rank using the letter rank map
   for (let j = 0; j < currentWord.length; j++) {
+    // ignore duplicates
     if (currentWord.indexOf(currentWord[j]) == j) {
       rank += letterRank.get(currentWord[j]);
     }
   }
   rankedSuggestions.set(currentWord, rank);
 }
+// sort the ranked word map highest first
 rankedSuggestions = new Map(
   [...rankedSuggestions.entries()].sort((a, b) => b[1] - a[1])
 );
