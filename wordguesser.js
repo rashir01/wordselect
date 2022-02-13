@@ -45,78 +45,73 @@ let balckLetters = [];
 let greenLetters = ["*", "*", "*", "*", "*"];
 
 //get yellow letters from html
-let yellowLetters = [
-  // { letter: "r", position: 1 },
-  // { letter: "e", position: 4 },
-  // { letter: "l", position: 0 },
-  // { letter: "r", position: 2 },
-  // { letter: "o", position: 1 },
-  // { letter: "l", position: 0 },
-  // { letter: "l", position: 2 },
-  // { letter: "s", position: 2 },
-  // { letter: "i", position: 4 },
-  // // { letter: "t", position: 0 },
-  // { letter: "o", position: 1 },
-  // { letter: "a", position: 2 },
-  // { letter: "i", position: 4 },
-  // { letter: "t", position: 3 },
-];
+let yellowLetters = [];
 
-// handle black letters
-fiveLetterWords = fiveLetterWords.filter((d) => {
-  for (let i = 0; i < balckLetters.length; i++) {
-    if (d.indexOf(balckLetters[i]) != -1) return false;
-  }
-  return true;
-});
+let rankedSuggestions = new Map();
 
-// handle green letters
-fiveLetterWords = fiveLetterWords.filter((d) => {
-  for (let i = 0; i < greenLetters.length; i++) {
-    if (greenLetters[i] != "*") {
-      // start the search from index i to account for repeated letters
-      if (d.indexOf(greenLetters[i], i) != i) {
+function generateMatchingWords() {
+  fiveLetterWords = words;
+  // handle black letters
+  fiveLetterWords = fiveLetterWords.filter((d) => {
+    for (let i = 0; i < balckLetters.length; i++) {
+      if (d.indexOf(balckLetters[i]) != -1) return false;
+    }
+    return true;
+  });
+
+  console.log(fiveLetterWords);
+  // handle green letters
+  fiveLetterWords = fiveLetterWords.filter((d) => {
+    for (let i = 0; i < greenLetters.length; i++) {
+      if (greenLetters[i] != "*") {
+        // start the search from index i to account for repeated letters
+        if (d.indexOf(greenLetters[i], i) != i) {
+          return false;
+        }
+      }
+    }
+    return true;
+  });
+  console.log(fiveLetterWords);
+  // handle yellow letters
+  fiveLetterWords = fiveLetterWords.filter((d) => {
+    for (let i = 0; i < yellowLetters.length; i++) {
+      if (
+        d.indexOf(yellowLetters[i].letter) == -1 ||
+        d.indexOf(yellowLetters[i].letter) == yellowLetters[i].position
+      ) {
         return false;
       }
     }
-  }
-  return true;
-});
-
-// handle yellow letters
-fiveLetterWords = fiveLetterWords.filter((d) => {
-  for (let i = 0; i < yellowLetters.length; i++) {
-    if (
-      d.indexOf(yellowLetters[i].letter) == -1 ||
-      d.indexOf(yellowLetters[i].letter) == yellowLetters[i].position
-    ) {
-      return false;
-    }
-  }
-  return true;
-});
-
-// rank words based on their letter score. ignore duplicate letters.
-let rankedSuggestions = new Map();
-for (let i = 0; i < fiveLetterWords.length; i++) {
-  let currentWord = fiveLetterWords[i];
-  let rank = 0;
-  //determine word rank using the letter rank map
-  for (let j = 0; j < currentWord.length; j++) {
-    // ignore duplicates
-    if (currentWord.indexOf(currentWord[j]) == j) {
-      rank += letterRank.get(currentWord[j]);
-    }
-  }
-  rankedSuggestions.set(currentWord, rank);
+    return true;
+  });
+  console.log(fiveLetterWords);
 }
-// sort the ranked word map highest first
-rankedSuggestions = new Map(
-  [...rankedSuggestions.entries()].sort((a, b) => b[1] - a[1])
-);
 
-console.dir(rankedSuggestions, { maxArrayLength: null });
-// console.log(fiveLetterWords);
+function generateRankedWords() {
+  //rankedSuggestions = new Map();
+  for (let i = 0; i < fiveLetterWords.length; i++) {
+    let currentWord = fiveLetterWords[i];
+    let rank = 0;
+    //determine word rank using the letter rank map
+    for (let j = 0; j < currentWord.length; j++) {
+      // ignore duplicates
+      if (currentWord.indexOf(currentWord[j]) == j) {
+        rank += letterRank.get(currentWord[j]);
+      }
+    }
+    rankedSuggestions.set(currentWord, rank);
+  }
+  // sort the ranked word map highest first
+  rankedSuggestions = new Map(
+    [...rankedSuggestions.entries()].sort((a, b) => b[1] - a[1])
+  );
+
+  console.log(rankedSuggestions);
+  // console.dir(rankedSuggestions, { maxArrayLength: null });
+  // console.log(fiveLetterWords);
+}
+// rank words based on their letter score. ignore duplicate letters.
 
 function readBlackLetters() {
   balckLetters = [];
@@ -139,10 +134,21 @@ function readYellowLetters() {
   for (let i = 0; i < count; i++) {
     let currentLetter = $(`#yellowletter${i}`).val();
     let currentPosition = $(`#yellowpos${i}`).val();
-    yellowLetters.push({ letter: currentLetter, position: currentPosition });
+    if (currentLetter != "*")
+      yellowLetters.push({ letter: currentLetter, position: currentPosition });
   }
   console.log(yellowLetters);
   //iterate and assign to the array
+}
+
+function displayRankedWords() {
+  console.log(rankedSuggestions);
+  console.log(fiveLetterWords);
+  // for (let [key, value] of rankedSuggestions) {
+  //   console.log(key + " = " + value);
+  // }
+
+  $("<li>Text</li>").appendTo("#results");
 }
 
 function handleSearchButtonClick(event) {
@@ -152,6 +158,9 @@ function handleSearchButtonClick(event) {
   readBlackLetters();
   readGreenLetters();
   readYellowLetters();
+  generateMatchingWords();
+  generateRankedWords();
+  displayRankedWords();
   // read yellow letters
 
   //read the value of the search field and store it
