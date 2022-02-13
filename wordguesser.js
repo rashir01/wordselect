@@ -117,3 +117,32 @@ rankedSuggestions = new Map(
 
 console.dir(rankedSuggestions, { maxArrayLength: null });
 // console.log(fiveLetterWords);
+
+function readBlackLetters() {
+  let rawBlackLetters = $("#blackLetters").val().trim().toLowerCase();
+  balckLetters = rawBlackLetters.split("");
+}
+
+function handleSearchButtonClick(event) {
+  event.preventDefault();
+  console.log(event.target);
+
+  readBlackLetters();
+
+  // read green letters
+
+  // read yellow letters
+
+  //read the value of the search field and store it
+  // let userInput=$("#searchInput").val().trim();
+  // //call the news api to get the news
+  // callNewsApi(userInput);
+  // console.log(userInput);
+  // //call the stockprice api to get the data
+  // callStockPriceApi(userInput);
+  // //call the news api to get the news
+  // callNewsApi(userInput)
+  // $('#searchInput').val(' ')
+}
+
+$("#findWordsBtn").click(handleSearchButtonClick);
