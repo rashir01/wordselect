@@ -45,7 +45,6 @@ function generateMatchingWords() {
     return true;
   });
 
-  console.log(fiveLetterWords);
   // handle green letters
   fiveLetterWords = fiveLetterWords.filter((d) => {
     for (let i = 0; i < greenLetters.length; i++) {
@@ -58,7 +57,6 @@ function generateMatchingWords() {
     }
     return true;
   });
-  console.log(fiveLetterWords);
   // handle yellow letters
   fiveLetterWords = fiveLetterWords.filter((d) => {
     for (let i = 0; i < yellowLetters.length; i++) {
@@ -71,7 +69,6 @@ function generateMatchingWords() {
     }
     return true;
   });
-  console.log(fiveLetterWords);
 }
 
 function generateRankedWords() {
@@ -122,7 +119,6 @@ function displayRankedWords() {
   let count = 0;
   $("#results").empty();
   for (const [key, value] of rankedSuggestions.entries()) {
-    console.log(key, value);
     $(`<li>${key} rank: ${value}</li>`).appendTo("#results");
     count++;
     if (count == 20) break;
@@ -131,7 +127,6 @@ function displayRankedWords() {
 
 function handleSearchButtonClick(event) {
   event.preventDefault();
-  console.log(event.target);
 
   readBlackLetters();
   readGreenLetters();
