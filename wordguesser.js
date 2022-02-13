@@ -97,7 +97,7 @@ function readBlackLetters() {
 }
 
 function readGreenLetters() {
-  greenLetters = [];
+  greenLetters = ["*", "*", "*", "*", "*"];
   for (let i = 0; i < greenLetters.length; i++) {
     greenLetters[i] = $(`#green${i}`).val();
   }
