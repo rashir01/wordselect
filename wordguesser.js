@@ -123,12 +123,18 @@ function readBlackLetters() {
   balckLetters = rawBlackLetters.split("");
 }
 
+function readGreenLetters() {
+  for (let i = 0; i < greenLetters.length; i++) {
+    greenLetters[i] = $(`#green${i}`).val();
+  }
+}
+
 function handleSearchButtonClick(event) {
   event.preventDefault();
   console.log(event.target);
 
   readBlackLetters();
-
+  readGreenLetters();
   // read green letters
 
   // read yellow letters
