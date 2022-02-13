@@ -1,9 +1,13 @@
-const words = require("an-array-of-english-words");
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
+//import { words } from "an-array-of-english-words";
+import { words } from "./words.js";
+let fiveLetterWords = words;
 
 //get a list of all five letter words
-let fiveLetterWords = words.filter((d) => {
-  return d.length == 5;
-});
+// let fiveLetterWords = words.filter((d) => {
+//   return d.length == 5;
+// });
 
 //get a score for every time a letter appears in a word. this will be used for ranking
 const letterRank = new Map();
@@ -35,16 +39,16 @@ letterRank.set("x", 274);
 letterRank.set("q", 106);
 
 // get black letters from html
-let balckLetters = ["r", "o", "i", "l", "y", "m", "n", "c"];
+let balckLetters = [];
 
 //get green letters from html
-let greenLetters = ["*", "a", "u", "s", "e"];
+let greenLetters = ["*", "*", "*", "*", "*"];
 
 //get yellow letters from html
 let yellowLetters = [
-  { letter: "a", position: 0 },
-  { letter: "a", position: 2 },
-  // { letter: "o", position: 2 },
+  // { letter: "r", position: 1 },
+  // { letter: "e", position: 4 },
+  // { letter: "l", position: 0 },
   // { letter: "r", position: 2 },
   // { letter: "o", position: 1 },
   // { letter: "l", position: 0 },
