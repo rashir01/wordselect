@@ -119,14 +119,30 @@ console.dir(rankedSuggestions, { maxArrayLength: null });
 // console.log(fiveLetterWords);
 
 function readBlackLetters() {
+  balckLetters = [];
   let rawBlackLetters = $("#blackLetters").val().trim().toLowerCase();
   balckLetters = rawBlackLetters.split("");
 }
 
 function readGreenLetters() {
+  greenLetters = [];
   for (let i = 0; i < greenLetters.length; i++) {
     greenLetters[i] = $(`#green${i}`).val();
   }
+}
+
+function readYellowLetters() {
+  yellowLetters = [];
+  //get how many items are there in the list
+  var count = $("#yellowLetters").children().length;
+  console.log("count is " + count);
+  for (let i = 0; i < count; i++) {
+    let currentLetter = $(`#yellowletter${i}`).val();
+    let currentPosition = $(`#yellowpos${i}`).val();
+    yellowLetters.push({ letter: currentLetter, position: currentPosition });
+  }
+  console.log(yellowLetters);
+  //iterate and assign to the array
 }
 
 function handleSearchButtonClick(event) {
@@ -135,8 +151,7 @@ function handleSearchButtonClick(event) {
 
   readBlackLetters();
   readGreenLetters();
-  // read green letters
-
+  readYellowLetters();
   // read yellow letters
 
   //read the value of the search field and store it
