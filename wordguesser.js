@@ -1,13 +1,10 @@
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
-//import { words } from "an-array-of-english-words";
 import { words } from "./words.js";
 let fiveLetterWords = words;
+let balckLetters = [];
+let greenLetters = ["*", "*", "*", "*", "*"];
+let yellowLetters = [];
 
-//get a list of all five letter words
-// let fiveLetterWords = words.filter((d) => {
-//   return d.length == 5;
-// });
+let rankedSuggestions = new Map();
 
 //get a score for every time a letter appears in a word. this will be used for ranking
 const letterRank = new Map();
@@ -37,17 +34,6 @@ letterRank.set("z", 414);
 letterRank.set("j", 276);
 letterRank.set("x", 274);
 letterRank.set("q", 106);
-
-// get black letters from html
-let balckLetters = [];
-
-//get green letters from html
-let greenLetters = ["*", "*", "*", "*", "*"];
-
-//get yellow letters from html
-let yellowLetters = [];
-
-let rankedSuggestions = new Map();
 
 function generateMatchingWords() {
   fiveLetterWords = words;
@@ -89,7 +75,6 @@ function generateMatchingWords() {
 }
 
 function generateRankedWords() {
-  //rankedSuggestions = new Map();
   for (let i = 0; i < fiveLetterWords.length; i++) {
     let currentWord = fiveLetterWords[i];
     let rank = 0;
@@ -106,12 +91,7 @@ function generateRankedWords() {
   rankedSuggestions = new Map(
     [...rankedSuggestions.entries()].sort((a, b) => b[1] - a[1])
   );
-
-  console.log(rankedSuggestions);
-  // console.dir(rankedSuggestions, { maxArrayLength: null });
-  // console.log(fiveLetterWords);
 }
-// rank words based on their letter score. ignore duplicate letters.
 
 function readBlackLetters() {
   balckLetters = [];
@@ -130,25 +110,23 @@ function readYellowLetters() {
   yellowLetters = [];
   //get how many items are there in the list
   var count = $("#yellowLetters").children().length;
-  console.log("count is " + count);
   for (let i = 0; i < count; i++) {
-    let currentLetter = $(`#yellowletter${i}`).val();
+    let currentLetter = $(`#yellowletter${i}`).val().toLowerCase().charAt(0);
     let currentPosition = $(`#yellowpos${i}`).val();
-    if (currentLetter != "*")
+    if (currentLetter != "*" && currentLetter != "")
       yellowLetters.push({ letter: currentLetter, position: currentPosition });
   }
-  console.log(yellowLetters);
-  //iterate and assign to the array
 }
 
 function displayRankedWords() {
-  console.log(rankedSuggestions);
-  console.log(fiveLetterWords);
-  // for (let [key, value] of rankedSuggestions) {
-  //   console.log(key + " = " + value);
-  // }
-
-  $("<li>Text</li>").appendTo("#results");
+  let count = 0;
+  $("#results").empty();
+  for (const [key, value] of rankedSuggestions.entries()) {
+    console.log(key, value);
+    $(`<li>${key} rank: ${value}</li>`).appendTo("#results");
+    count++;
+    if (count == 20) break;
+  }
 }
 
 function handleSearchButtonClick(event) {
@@ -161,18 +139,6 @@ function handleSearchButtonClick(event) {
   generateMatchingWords();
   generateRankedWords();
   displayRankedWords();
-  // read yellow letters
-
-  //read the value of the search field and store it
-  // let userInput=$("#searchInput").val().trim();
-  // //call the news api to get the news
-  // callNewsApi(userInput);
-  // console.log(userInput);
-  // //call the stockprice api to get the data
-  // callStockPriceApi(userInput);
-  // //call the news api to get the news
-  // callNewsApi(userInput)
-  // $('#searchInput').val(' ')
 }
 
 $("#findWordsBtn").click(handleSearchButtonClick);
