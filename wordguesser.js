@@ -123,11 +123,13 @@ function displayRankedWords() {
     count++;
     if (count == 20) break;
   }
+
+  console.log(rankedSuggestions);
 }
 
 function handleSearchButtonClick(event) {
   event.preventDefault();
-
+  rankedSuggestions = new Map();
   readBlackLetters();
   readGreenLetters();
   readYellowLetters();
