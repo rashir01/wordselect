@@ -1,0 +1,26 @@
+{
+  "name": "worldeguesser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wordguesser.js",
+  "type":"module", 
+  "dependencies": {
+    "an-array-of-english-words": "^2.0.0"
+  },
+  "devDependencies": {
+    "require-stub": "^2.2.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rashir01/wordselect.git"
+  },
+  "author": "Ray Ashir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rashir01/wordselect/issues"
+  },
+  "homepage": "https://github.com/rashir01/wordselect#readme"
+}
