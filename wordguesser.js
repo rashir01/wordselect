@@ -1,6 +1,6 @@
 import { words } from "./words.js";
 let fiveLetterWords = words;
-let balckLetters = [];
+let blackLetters = [];
 let greenLetters = ["*", "*", "*", "*", "*"];
 let yellowLetters = [];
 
@@ -38,9 +38,16 @@ letterRank.set("q", 106);
 function generateMatchingWords() {
   fiveLetterWords = words;
   // handle black letters
-  fiveLetterWords = fiveLetterWords.filter((d) => {
-    for (let i = 0; i < balckLetters.length; i++) {
-      if (d.indexOf(balckLetters[i]) != -1) return false;
+  fiveLetterWords = fiveLetterWords.filter((currentWord) => {
+    for (let i = 0; i < blackLetters.length; i++) {
+      // if the letter is in the black letter but it is not in the green letters and current position of the word
+      if (currentWord.indexOf(blackLetters[i]) != -1) {
+        if (greenLetters.includes(blackLetters[i])) {
+          let greenIndex = greenLetters.indexOf(blackLetters[i]);
+          if (greenIndex == currentWord.indexOf(blackLetters[i])) continue;
+        }
+        return false;
+      }
     }
     return true;
   });
@@ -91,9 +98,9 @@ function generateRankedWords() {
 }
 
 function readBlackLetters() {
-  balckLetters = [];
+  blackLetters = [];
   let rawBlackLetters = $("#blackLetters").val().trim().toLowerCase();
-  balckLetters = rawBlackLetters.split("");
+  blackLetters = rawBlackLetters.split("");
 }
 
 function readGreenLetters() {
